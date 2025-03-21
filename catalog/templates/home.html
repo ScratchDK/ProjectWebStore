@@ -35,24 +35,14 @@
         <h3 style="text-align:center"> Вы находитесь на главной странице онлайн магазина </h3>
 
         <div class="container">
-            <div class="product-card">
-                <div class="product-name"><b>Товар</b></div>
-                <div class="product-price"><b>Цена</b></div>
-                <div class="product-description">Описание</div>
-                <button class="btn-buy">Купить</button>
-            </div>
-            <div class="product-card">
-                <div class="product-name"><b>Товар</b></div>
-                <div class="product-price"><b>Цена</b></div>
-                <div class="product-description">Описание</div>
-                <button class="btn-buy">Купить</button>
-            </div>
-            <div class="product-card">
-                <div class="product-name"><b>Товар</b></div>
-                <div class="product-price"><b>Цена</b></div>
-                <div class="product-description">Описание</div>
-                <button class="btn-buy">Купить</button>
-            </div>
+            {% for product in products %}
+                <div class="product-card">
+                    <div class="product-name"><b>{{ product.name }}</b></div>
+                    <div class="product-price"><b>{{ product.price }}</b></div>
+                    <div class="product-description">{{ product.description }}</div>
+                    <button class="btn-buy">Купить</button>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </body>

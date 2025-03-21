@@ -7,7 +7,7 @@ def home(request):
     last_five_products = Product.objects.order_by('-created_at')[:5]
     for product in last_five_products:
         print(product)
-    return render(request, "home.html")
+    return render(request, "home.html", {"products": last_five_products})
 
 
 def contacts(request):

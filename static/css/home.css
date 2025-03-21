@@ -39,23 +39,20 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-
 .product-name {
     background: LightGrey;
     padding: 5px;
-    font-size: 24px;
+    font-size: 20px;
 }
-
 .product-price {
     padding: 5px;
     font-size: 48px;
 }
-
 .product-description {
     padding: 5px;
     font-size: 18px;
+    height: 50px;
 }
-
 .btn-buy {
     width: 70%;
     color: DodgerBlue;
