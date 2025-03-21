@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from .forms import ContactForm
+from .models import Product
 
 
 def home(request):
+    last_five_products = Product.objects.order_by('-created_at')[:5]
+    for product in last_five_products:
+        print(product)
     return render(request, "home.html")
 
 
