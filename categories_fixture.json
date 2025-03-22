@@ -1,7 +1,7 @@
 [
 {
     "model": "catalog.category",
-    "pk": 5,
+    "pk": 1,
     "fields": {
         "name": "Морепродукты",
         "description": "Рыба, икра, морепродукты"
@@ -9,7 +9,7 @@
 },
 {
     "model": "catalog.category",
-    "pk": 6,
+    "pk": 2,
     "fields": {
         "name": "Мясная продукция",
         "description": "Мясо, колбасы, мясные деликатесы"
