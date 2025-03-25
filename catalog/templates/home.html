@@ -14,7 +14,7 @@
 <body>
     <div class="sidebar">
         <div class="logo">
-            <h2 style="color: white; font-size: 36px;">Меню</h2>
+            <img src="{% static 'img/shop.png' %}" alt="Логотип" class="img-logo"><h2 style="color: white; font-size: 36px;">Меню</h2>
         </div>
         <div class="nav">
             <a href="#home" ><i class="bi bi-house"></i> Главная</a>
@@ -35,24 +35,15 @@
         <h3 style="text-align:center"> Вы находитесь на главной странице онлайн магазина </h3>
 
         <div class="container">
-            <div class="product-card">
-                <div class="product-name"><b>Товар</b></div>
-                <div class="product-price"><b>Цена</b></div>
-                <div class="product-description">Описание</div>
-                <button class="btn-buy">Купить</button>
-            </div>
-            <div class="product-card">
-                <div class="product-name"><b>Товар</b></div>
-                <div class="product-price"><b>Цена</b></div>
-                <div class="product-description">Описание</div>
-                <button class="btn-buy">Купить</button>
-            </div>
-            <div class="product-card">
-                <div class="product-name"><b>Товар</b></div>
-                <div class="product-price"><b>Цена</b></div>
-                <div class="product-description">Описание</div>
-                <button class="btn-buy">Купить</button>
-            </div>
+            {% for product in products %}
+                <div class="product-card">
+                    <div class="product-name"><b>{{ product.name }}</b></div>
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-product">
+                    <div class="product-price"><b>{{ product.price }}</b></div>
+                    <div class="product-description">{{ product.description }}</div>
+                    <div class="product-btn"><button class="btn-buy">Купить</button></div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </body>
