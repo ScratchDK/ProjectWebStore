@@ -47,13 +47,13 @@ body {
 .product-name {
     background: LightGrey;
     padding: 5px;
-    font-size: 18px;
-    height: 40px;
+    font-size: 16px;
+    height: 38px;
     border-bottom: solid Silver 2px;
 }
 .product-price {
     padding: 5px;
-    font-size: 32px;
+    font-size: 28px;
 }
 .product-description {
     padding: 5px;
@@ -69,6 +69,7 @@ body {
     color: DodgerBlue;
     border-color: DodgerBlue;
     font-size: 18px;
+    border-radius: 4px;
 }
 .logo {
     text-align: center;
@@ -166,15 +167,23 @@ body {
     color: DodgerBlue;
     border-color: DodgerBlue;
     font-size: 18px;
+    border-radius: 4px;
 }
-
+.btn-secondary:hover {
+    color: red;
+    border-color: red;
+}
 .btn-primary {
     width: 25%;
     color: DodgerBlue;
     border-color: DodgerBlue;
     font-size: 18px;
+    border-radius: 4px;
 }
-
+.btn-primary:hover {
+    color: green;
+    border-color: green;
+}
 .close {
     color: white;
     background: red;

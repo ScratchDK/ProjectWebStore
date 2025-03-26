@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Добавление продукта{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/create_product.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-create">
+    <div class="form-container">
+        <h1>Добавить новый продукт</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.name.label }} {{ form.name }}</p>
+            <p>{{ form.category.label }} {{ form.category }}</p>
+            <p>{{ form.price.label }} {{ form.price }}</p>
+            <p>{{ form.description.label }} {{ form.description }}</p>
+            <p>{{ form.image.label }} {{ form.image }}</p>
+            <button type="submit">Сохранить продукт</button>
+        </form>
+        <a href="{% url 'catalog:home' %}">Назад к главной странице</a>
+    </div>
+</div>
+{% endblock %}

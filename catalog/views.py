@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
-from .forms import ContactForm
+from django.shortcuts import render, redirect
+from .forms import ContactForm, ProductForm
 from .models import Product
 
 
@@ -29,3 +29,15 @@ def contacts(request):
         form = ContactForm()
 
     return render(request, 'contacts.html', {'form': form})
+
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('catalog:home')
+    else:
+        form = ProductForm()
+
+    return render(request, 'create_product.html', {'form': form})
