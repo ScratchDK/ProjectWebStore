@@ -13,7 +13,7 @@
         <div class="post-card">
             <div class="post-title"><strong>{{ post.title }}</strong></div>
             <img src="{{ post.preview_image.url }}" alt="{{ post.title }}" class="img-post">
-            <div class="post-content">{{ post.content }}</div>
+            <div class="post-content">{{ post.content|linebreaks }}</div>
             <div class="post-count"> Количество просмотров: {{ post.views_count }}</div>
             <div class="footer">
                 <a href="{% url 'blog:update_post' post.id %}">Изменить</a>
