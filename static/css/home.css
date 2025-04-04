@@ -27,14 +27,13 @@ body {
     justify-content: center;
     max-width: 1200px;
     margin-left: 15%;
-    margin-top: 5%;
 }
 .product-card {
     background: white;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding-bottom: 5px;
-    margin: 25px;
+    margin: 20px;
     width: 20%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -48,12 +47,13 @@ body {
 .product-name {
     background: LightGrey;
     padding: 5px;
-    font-size: 18px;
+    font-size: 16px;
+    height: 38px;
     border-bottom: solid Silver 2px;
 }
 .product-price {
     padding: 5px;
-    font-size: 36px;
+    font-size: 28px;
 }
 .product-description {
     padding: 5px;
@@ -69,6 +69,7 @@ body {
     color: DodgerBlue;
     border-color: DodgerBlue;
     font-size: 18px;
+    border-radius: 4px;
 }
 .logo {
     text-align: center;
@@ -120,4 +121,92 @@ body {
     background: black;
     color: white;
     font-size: 16px;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    font-family: Open-Sans;
+    border-radius: 8px;
+    border: solid Silver 2px;
+}
+
+.modal-header {
+    padding: 10px;
+}
+
+.modal-body {
+    border-top: solid Silver 2px;
+    padding: 10px;
+}
+
+.modal-footer {
+    border-top: solid Silver 2px;
+    padding: 10px;
+}
+
+.btn-secondary {
+    width: 25%;
+    color: DodgerBlue;
+    border-color: DodgerBlue;
+    font-size: 18px;
+    border-radius: 4px;
+}
+.btn-secondary:hover {
+    color: red;
+    border-color: red;
+}
+.btn-primary {
+    width: 25%;
+    color: DodgerBlue;
+    border-color: DodgerBlue;
+    font-size: 18px;
+    border-radius: 4px;
+}
+.btn-primary:hover {
+    color: green;
+    border-color: green;
+}
+.close {
+    color: white;
+    background: red;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pagination {
+    font-size: 20px;
+    position: fixed;
+    top: 95%;
+    left: 50%;
+}
+
+.pagination a {
+    color: black;
+    text-decoration: none;
 }
