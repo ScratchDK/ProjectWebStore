@@ -1,0 +1,24 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% block title %} Блог {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1 style="text-align:center; font-size: 48px;"><strong>Блог</strong></h1>
+    <div class="content-post">
+        {% for post in blog %}
+            <div class="post-card">
+                <div class="post-title"><b>{{ post.title }}</b></div>
+                <img src="{{ post.preview_image.url }}" alt="{{ post.title }}" class="img-post">
+                <div class="post-content">{{ post.content|truncatechars:200  }}</div>
+                <a href="{% url 'blog:post_detail' post.id %}">Подробнее</a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
