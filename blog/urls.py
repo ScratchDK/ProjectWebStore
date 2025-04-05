@@ -5,7 +5,7 @@ from blog.apps import BlogConfig
 app_name = BlogConfig.name
 
 urlpatterns = [
-    path("post_list/", views.PostListView.as_view(), name="post_list"),
+    path("", views.PostListView.as_view(), name="post_list"),
     path('post/<int:id>/', views.PostDetailView.as_view(), name='post_detail'),
     path("create_post/", views.PostCreateView.as_view(), name="create_post"),
     path("update_post/<int:id>/", views.PostUpdateView.as_view(), name="update_post"),
