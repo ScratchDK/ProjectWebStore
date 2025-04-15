@@ -1,0 +1,68 @@
+.content-post {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    margin-left: 5%;
+}
+.post-card {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding-bottom: 5px;
+    margin: 20px;
+    width: 80%;
+    height: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: solid Silver 2px;
+}
+.img-post {
+    width: 50%;
+    height: 400px;
+    padding: 20px;
+}
+.post-title {
+    background: LightGrey;
+    padding: 5px;
+    font-size: 36px;
+    height: 48px;
+    border-bottom: solid Silver 2px;
+}
+.post-content {
+    padding: 20px;
+    font-size: 14px;
+    height: auto;
+    text-align: left;
+}
+.post-card a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: White;
+    text-decoration: none;
+}
+.footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.footer a {
+    background: #007bff;
+    border-radius: 8px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+}
+.modal-delete {
+    background-color: white;
+    margin: 15% auto;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    font-family: Open-Sans;
+    border-radius: 8px;
+    border: solid Silver 2px;
+}

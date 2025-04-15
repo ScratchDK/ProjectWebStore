@@ -123,7 +123,6 @@ body {
     font-size: 16px;
 }
 
-
 .modal {
     display: none;
     position: fixed;
@@ -136,7 +135,6 @@ body {
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
 }
-
 .modal-content {
     background-color: white;
     margin: 15% auto;
@@ -147,21 +145,17 @@ body {
     border-radius: 8px;
     border: solid Silver 2px;
 }
-
 .modal-header {
     padding: 10px;
 }
-
 .modal-body {
     border-top: solid Silver 2px;
     padding: 10px;
 }
-
 .modal-footer {
     border-top: solid Silver 2px;
     padding: 10px;
 }
-
 .btn-secondary {
     width: 25%;
     color: DodgerBlue;
@@ -191,7 +185,6 @@ body {
     font-size: 20px;
     font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
     color: black;
@@ -205,7 +198,6 @@ body {
     top: 95%;
     left: 50%;
 }
-
 .pagination a {
     color: black;
     text-decoration: none;

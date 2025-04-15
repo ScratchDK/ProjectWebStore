@@ -1,0 +1,66 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% block title %} Блог {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content-post">
+        <div class="post-card">
+            <div class="post-title"><strong>{{ post.title }}</strong></div>
+            {% if post.preview_image %}
+                <img src="{{ post.preview_image.url }}" alt="{{ post.title }}" class="img-post">
+            {% endif %}
+            <div class="post-content">{{ post.content|linebreaks }}</div>
+            <div class="post-count"> Количество просмотров: {{ post.views_count }}</div>
+            <div class="footer">
+                <a href="{% url 'blog:update_post' post.id %}">Изменить</a>
+                <a href="#" id="delete-post-button">Удалить</a>
+                <a href="{% url 'blog:post_list' %}">Вернуться</a>
+            </div>
+        </div>
+    </div>
+      <!-- Модальное окно -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-delete">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h2>Подтверждение удаления</h2>
+            <p>Вы уверены, что хотите удалить этот пост?</p>
+            <div class="modal-actions">
+                <a href="{% url 'blog:delete_post' post.id %}" class="btn btn-danger">Да, удалить</a>
+                <button class="btn-cancel" id="close-modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("delete-modal");
+        var btn = document.getElementById("delete-post-button");
+        var closeBtn = document.getElementsByClassName("close")[0];
+        var closeModalBtn = document.getElementById("close-modal");
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        closeModalBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+{% endblock %}
