@@ -16,15 +16,17 @@
                 <img src="{{ post.preview_image.url }}" alt="{{ post.title }}" class="img-post">
             {% endif %}
             <div class="post-content">{{ post.content|linebreaks }}</div>
-            <div class="post-count"> Количество просмотров: {{ post.views_count }}</div>
+            <div class="post-count"><strong>Количество просмотров: {{ post.views_count }}</strong></div>
             <div class="footer">
-                <a href="{% url 'blog:update_post' post.id %}">Изменить</a>
-                <a href="#" id="delete-post-button">Удалить</a>
-                <a href="{% url 'blog:post_list' %}">Вернуться</a>
             </div>
         </div>
+        <div class="tools">
+            <a href="{% url 'blog:update_post' post.id %}"><i class="bi bi-pencil-square"></i></a>
+            <a href="#"><button id="delete-post-button" class="btn-delete"><i class="bi bi-trash"></i></button></a>
+            <a href="{% url 'blog:post_list' %}"><i class="bi bi-arrow-90deg-left"></i></a>
+        </div>
     </div>
-      <!-- Модальное окно -->
+    <!-- Модальное окно -->
     <div id="delete-modal" class="modal">
         <div class="modal-delete">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -33,7 +35,10 @@
             <h2>Подтверждение удаления</h2>
             <p>Вы уверены, что хотите удалить этот пост?</p>
             <div class="modal-actions">
-                <a href="{% url 'blog:delete_post' post.id %}" class="btn btn-danger">Да, удалить</a>
+                <form action="{% url 'blog:delete_post' post.id %}" method="POST" id="delete-post-form">
+                    {% csrf_token %}
+                    <button type="submit" class="modal-btn-delete">Да, удалить</button>
+                </form>
                 <button class="btn-cancel" id="close-modal">Отмена</button>
             </div>
         </div>

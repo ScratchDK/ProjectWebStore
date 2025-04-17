@@ -1,9 +1,21 @@
 # from django.core.paginator import Paginator
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .forms import ContactForm, ProductForm
-from django.views.generic import ListView, FormView, CreateView
+from django.views.generic import ListView, FormView, CreateView, UpdateView, DeleteView
 from .models import Product
+from django.forms import inlineformset_factory, BooleanField
+
+
+# class StyleFormMixin:
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#
+#         for field in self.fields:
+#             if isinstance(field, BooleanField):
+#                 field.widget.attrs["class"] = "form-check-input"
+#             else:
+#                 field.widget.attrs["class"] = "form-control"
 
 
 class ProductsListView(ListView):
@@ -25,9 +37,46 @@ class ContactView(FormView):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = ["name", "description", "image", "category", "price"]
+    form_class = ProductForm
+    # fields = ["name", "description", "image", "category", "price"]
     template_name = 'catalog/create_product.html'
     success_url = reverse_lazy('catalog:home')
+
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    pk_url_kwarg = 'id'
+    template_name = 'catalog/delete_product.html'
+    success_url = reverse_lazy('catalog:home')
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    pk_url_kwarg = 'id'
+    form_class = ProductForm
+    template_name = "catalog/update_product.html"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     category_formset = inlineformset_factory(Product, Category, form=CategoryForm, extra=1)
+    #
+    #     if self.request.method == "POST":
+    #         context["formset"] = category_formset(self.request.POST, instance=self.object)
+    #     else:
+    #         context["formset"] = category_formset(instance=self.object)
+    #     return context
+    #
+    # def form_valid(self, form):
+    #     context_data = self.get_context_data()
+    #     formset = context_data["formset"]
+    #
+    #     if form.is_valid() and formset.is_valid():
+    #         self.object = form.save()
+    #         formset.instance = self.object
+    #         formset.save()
+    #         return super().form_valid(form)
+    #     else:
+    #         return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
 # def home(request):
