@@ -1,0 +1,27 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% block title %}Создание рассылки{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/create_product.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-create">
+    <div class="form-container">
+        <h1>Добавить новую рассылку</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>{{ form.first_mailing.label }} {{ form.first_mailing }}</p>
+            <p>{{ form.end_mailing.label }} {{ form.end_mailing }}</p>
+            <p>{{ form.status.label }} {{ form.status }}</p>
+            <p>{{ form.letter.label }} {{ form.letter }}</p>
+            <p>{{ form.recipients.label }} {{ form.recipients }}</p>
+            <button type="submit">Сохранить рассылку</button>
+        </form>
+        <a href="{% url 'catalog:home' %}">Назад к главной странице</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% block title %} Блог {% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content-post">
+        <div class="post-card">
+            <p>{{ mailing.first_mailing }}</p>
+            <p>{{ mailing.end_mailing }}</p>
+            <p>{{ mailing.status }}</p>
+            <p>{{ mailing.letter.topic }}</p>
+            <p>{{ mailing.letter.content }}</p>
+
+            {% for el in mailing.recipients.all %}
+                <p>{{ el }}</p>
+            {% endfor %}
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit">Отправить уведомление</button>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
