@@ -15,7 +15,7 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Сохранить продукт</button>
+            <button class="btn-save" type="submit">Сохранить продукт</button>
         </form>
         <a href="{% url 'catalog:home' %}">Назад к главной странице</a>
     </div>

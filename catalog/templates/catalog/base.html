@@ -38,7 +38,7 @@
             {% if user.is_authenticated %}
                 <button class="btn-user">{{ user.username }}</button>
             {% else %}
-                <button class="btn-user">Текущий пользователь</button>
+                <button class="btn-user">Авторизация</button>
             {% endif %}
             <div class="dropdown-content">
                 {% if user.is_authenticated %}
