@@ -1,9 +1,10 @@
 # from django.core.paginator import Paginator
 from django.urls import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from .forms import ContactForm, ProductForm
 from django.views.generic import ListView, FormView, CreateView, UpdateView, DeleteView
 from .models import Product
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory, BooleanField
 
 
@@ -35,7 +36,7 @@ class ContactView(FormView):
         return render(self.request, 'catalog/contact_success.html', {'name': name})
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     # fields = ["name", "description", "image", "category", "price"]
@@ -43,18 +44,19 @@ class ProductCreateView(CreateView):
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     pk_url_kwarg = 'id'
     template_name = 'catalog/delete_product.html'
     success_url = reverse_lazy('catalog:home')
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     pk_url_kwarg = 'id'
     form_class = ProductForm
     template_name = "catalog/update_product.html"
+    success_url = reverse_lazy('catalog:home')
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)

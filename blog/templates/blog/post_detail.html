@@ -21,9 +21,11 @@
             </div>
         </div>
         <div class="tools">
-            <a href="{% url 'blog:update_post' post.id %}"><i class="bi bi-pencil-square"></i></a>
-            <a href="#"><button id="delete-post-button" class="btn-delete"><i class="bi bi-trash"></i></button></a>
-            <a href="{% url 'blog:post_list' %}"><i class="bi bi-arrow-90deg-left"></i></a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'blog:update_post' post.id %}"><i class="bi bi-pencil-square"></i></a>
+                <a href="#"><button id="delete-post-button" class="btn-delete"><i class="bi bi-trash"></i></button></a>
+                <a href="{% url 'blog:post_list' %}"><i class="bi bi-arrow-90deg-left"></i></a>
+            {% endif %}
         </div>
     </div>
     <!-- Модальное окно -->

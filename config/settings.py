@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "catalog",
     "blog",
     "customers",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -104,3 +105,10 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+LOGIN_REDIRECT_URL = 'catalog:home'
+LOGOUT_REDIRECT_URL = 'catalog:home'
+
+LOGIN_URL = 'users:login'

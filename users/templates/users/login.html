@@ -1,0 +1,22 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/create_product.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-create">
+    <div class="form-container">
+        <h1>Вход</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Войти</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
