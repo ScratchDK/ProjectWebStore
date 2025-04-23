@@ -12,34 +12,60 @@
             <div class="product-name"><b>{{ product.name }}</b></div>
             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-product">
             <div class="product-price"><b>{{ product.price }}</b></div>
-            <div class="product-description">{{ product.description|truncatechars:40  }}</div>
+            <div class="product-description">{{ product.description|truncatechars:40 }}</div>
             <div class="product-btn">
                 <button class="btn-buy" data-toggle="modal" data-target="#productModal{{ product.id }}">Подробнее</button>
             </div>
         </div>
 
-    <!-- Modal -->
-    <div class="modal" id="productModal{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="productModalLabel{{ product.id }}" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h3 class="modal-title" id="productModalLabel{{ product.id }}">{{ product.name }}</h3>
-                </div>
-                <div class="modal-body">
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-product" style="width:200px; height: 200px;"/>
-                    <p><strong>Цена:</strong> {{ product.price }}</p>
-                    <p><strong>Описание:</strong> {{ product.description }}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-secondary" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn-primary">Купить</button>
+        <!-- Модальное окно для продукта -->
+        <div class="modal fade" id="productModal{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="productModalLabel{{ product.id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3 class="modal-title" id="productModalLabel{{ product.id }}">{{ product.name }}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-product" style="width:200px; height: 200px;"/>
+                        <p><strong>Цена:</strong> {{ product.price }}</p>
+                        <p><strong>Описание:</strong> {{ product.description }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn-primary">Купить</button>
+                        <a href="{% url 'catalog:update_product' product.id %}"><i class="bi bi-pencil-square"></i></a>
+                        <a href="#"><button class="btn-delete" data-toggle="modal" data-target="#deleteModal{{ product.id }}"><i class="bi bi-trash"></i></button></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- Модальное окно для подтверждения удаления -->
+        <div id="deleteModal{{ product.id }}" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h2>Подтверждение удаления</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы уверены, что хотите удалить этот продукт?</p>
+                        <div class="modal-actions">
+                            <form action="{% url 'catalog:delete_product' product.id %}" method="POST" id="delete-post-form-{{ product.id }}">
+                                {% csrf_token %}
+                                <button type="submit" class="modal-btn-delete">Да, удалить</button>
+                            </form>
+                            <button class="btn-cancel" data-dismiss="modal">Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endfor %}
 
     <!-- Пагинация -->

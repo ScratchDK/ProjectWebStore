@@ -10,23 +10,24 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     padding-bottom: 5px;
-    margin: 20px;
-    width: 40%;
-    height: 350px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    width: 30%;
+    height: 360px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     border: solid Silver 2px;
 }
 .img-post {
-    width: 50%;
-    height: 200px;
-    padding: 5px;
+    width: 100%;
+    height: 220px;
 }
 .post-title {
     background: LightGrey;
     padding: 5px;
     font-size: 18px;
-    height: 24px;
+    height: 40px;
     border-bottom: solid Silver 2px;
 }
 .post-content {
@@ -38,7 +39,7 @@
 .post-card a {
     display: block;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 4px;
     color: #007bff;
     text-decoration: none;
 }

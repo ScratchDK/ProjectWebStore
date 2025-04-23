@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Создание поста{% endblock %}
+{% block title %}Изменить содержание поста{% endblock %}
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/create_product.css' %}">
@@ -11,16 +11,16 @@
 {% block content %}
 <div class="content-create">
     <div class="form-container">
-        <h1>Добавить новый пост</h1>
+        <h1>Изменить содеражание поста</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <p>{{ form.title.label }} {{ form.title }}</p>
             <p>{{ form.content.label }} {{ form.content }}</p>
             <p>{{ form.is_published.label }} {{ form.is_published }}</p>
             <p>{{ form.preview_image.label }} {{ form.preview_image }}</p>
-            <button type="submit">Сохранить продукт</button>
+            <button type="submit">Сохранить пост</button>
         </form>
-        <a href="{% url 'blog:post_list' %}">Назад к главной странице</a>
+        <a href="{% url 'blog:post_detail' post.id %}">Вернуться к текущему посту</a>
     </div>
 </div>
 {% endblock %}

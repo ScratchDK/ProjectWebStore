@@ -1,0 +1,42 @@
+{% extends 'catalog/base.html' %}
+
+{% load static %}
+
+{% block title %}Создание рассылки{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/create_product.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-create">
+    <div class="form-container">
+        <h1>Список рассылок</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Дата и время начала рассылки</th>
+                    <th>Дата и время окончания рассылки</th>
+                    <th>Статус</th>
+                    <th>Письмо</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in mailing %}
+                    <tr>
+                        <td>{{ item.first_mailing }}</td>
+                        <td>{{ item.end_mailing }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.letter.topic }}</td>
+                        <td><a href="{% url 'customers:mailing_detail' item.id %}">Подробнее</a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">Нет рассылок для отображения.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -25,6 +25,10 @@
             <a href="{% url 'catalog:create_product' %}"><i class="bi bi-plus-circle"></i> Добавить продукт</a>
             <a href="{% url 'blog:post_list' %}"> Блог</a>
             <a href="{% url 'blog:create_post' %}"><i class="bi bi-plus-circle"></i> Добавить пост</a>
+            <a href="{% url 'customers:mailing_list' %}"> Список рассылок</a>
+            <a href="{% url 'customers:letter' %}"> Письмо</a>
+            <a href="{% url 'customers:mailing_create' %}"> Создать рассылку</a>
+            <a href="{% url 'customers:recipient' %}"> Получатель</a>
         </div>
         <div class="dropdown">
             <button class="btn-user">Текущий пользователь</button>
