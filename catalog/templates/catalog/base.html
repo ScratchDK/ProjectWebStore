@@ -35,7 +35,11 @@
             {% endif %}
         </div>
         <div class="dropdown">
-            <button class="btn-user">Текущий пользователь</button>
+            {% if user.is_authenticated %}
+                <button class="btn-user">{{ user.username }}</button>
+            {% else %}
+                <button class="btn-user">Текущий пользователь</button>
+            {% endif %}
             <div class="dropdown-content">
                 {% if user.is_authenticated %}
                     <a href="{% url 'users:update_profile' user.id %}">Профиль</a>
