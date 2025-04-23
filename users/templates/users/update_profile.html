@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Регистроция профиля{% endblock %}
+{% block title %}Изменить профиль{% endblock %}
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/create_product.css' %}">
@@ -11,11 +11,11 @@
 {% block content %}
 <div class="content-create">
     <div class="form-container">
-        <h1>Регистрация</h1>
+        <h1>Профиль</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Зарегистрироваться</button>
+            <button type="submit">Потвердить</button>
         </form>
     </div>
 </div>

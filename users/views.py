@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileUpdateForm
 from django.contrib.auth import login
 from django.core.mail import send_mail
 import config.settings as settings
@@ -40,6 +40,6 @@ class RegisterView(CreateView):
 class ProfileUpdateView(UpdateView):
     model = CustomUser
     pk_url_kwarg = 'id'
-    form_class = CustomUserCreationForm
+    form_class = ProfileUpdateForm
     template_name = "users/update_profile.html"
     success_url = reverse_lazy('catalog:home')
