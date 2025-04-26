@@ -9,7 +9,16 @@
 <h3 style="text-align:center"> Вы находитесь на главной странице онлайн магазина </h3>
 
 {% if messages %}
-    <div id="messages-container" style="display:none;"></div>
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
 {% endif %}
 
 <div class="container">
@@ -72,9 +81,9 @@
                         {% if user.is_authenticated %}
                             <a href="{% url 'catalog:update_product' product.id %}"><i class="bi bi-pencil-square"></i></a>
                             <a href="#"><button class="btn-delete" data-toggle="modal" data-target="#deleteModal{{ product.id }}"><i class="bi bi-trash"></i></button></a>
-                            <form action="{% url 'catalog:unpublish_product' product.id %}" method="post" class="d-inline">
+                            <form action="#" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-eye-slash"></i> Отменить публикацию</button>
+                                <a href="#"><button type="submit">Отменить публикацию</button></a>
                             </form>
                         {% endif %}
                     </div>
@@ -107,26 +116,6 @@
         </div>
     {% endfor %}
 
-    <!-- Модальное окно для сообщений -->
-    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="messageModalTitle">Уведомление</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" id="messageModalBody">
-            <!-- Сюда будут вставляться сообщения -->
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Пагинация -->
     <div class="pagination">
         <span class="step-links">
@@ -149,51 +138,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const messages = [
-            {% for message in messages %}
-            {
-                text: "{{ message|escapejs }}",
-                tags: "{{ message.tags }}"
-            },
-            {% endfor %}
-        ];
-
-        if (messages.length > 0) {
-            const modal = $('#messageModal');
-            const modalBody = $('#messageModalBody');
-            const modalTitle = $('#messageModalTitle');
-
-            // Очищаем предыдущие сообщения
-            modalBody.empty();
-
-            // Добавляем все сообщения
-            messages.forEach(message => {
-                const alertClass = message.tags === 'error' ? 'danger' : message.tags;
-                modalBody.append(`
-                    <div class="alert alert-${alertClass}">
-                        ${message.text}
-                    </div>
-                `);
-            });
-
-            // Устанавливаем заголовок по типу первого сообщения
-            const titleMap = {
-                'success': 'Успех',
-                'error': 'Ошибка',
-                'warning': 'Предупреждение',
-                'info': 'Информация'
-            };
-            const firstMessageType = messages[0].tags;
-            modalTitle.text(titleMap[firstMessageType] || 'Уведомление');
-
-            // Показываем модальное окно
-            modal.modal('show');
-        }
-    });
-    </script>
-
 </div>
 {% endblock %}

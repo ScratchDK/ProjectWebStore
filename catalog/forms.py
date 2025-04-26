@@ -14,7 +14,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'image', 'category', 'price', 'unit']
+        fields = ['name', 'description', 'image', 'category', 'price', 'unit', 'is_published']
         # widgets = {
         #     'description': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Введите описание продукта...'}),
         #     'price': forms.NumberInput(attrs={'step': '0.01'}),
@@ -26,6 +26,7 @@ class ProductForm(forms.ModelForm):
             'category': 'Категория',
             'price': 'Цена за покупку',
             'unit': 'Единица измерения',
+            'is_published': 'Опубликовано',
         }
 
     def __init__(self, *args, **kwargs):

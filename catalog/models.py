@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser
 
 
 class Category(models.Model):
@@ -30,6 +31,11 @@ class Product(models.Model):
     unit = models.CharField(max_length=20, choices=UNIT_CHOICES, null=True, blank=True)
     old_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True,  verbose_name='Старая цена')
     structure = models.TextField(blank=True, verbose_name='Состав')
+
+    is_published = models.BooleanField(default=False, verbose_name='Опубликовано')
+    owner = models.ForeignKey(
+        CustomUser, on_delete=models.SET_NULL, null=True, related_name='owner', verbose_name='Менеджер')
+
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения')
 
@@ -37,6 +43,9 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ['category']
+        permissions = [
+            ("can_cancel_publish_product", 'Может отменять публикацию продукта'),
+        ]
 
     def get_unit_display(self):
         return dict(self.UNIT_CHOICES).get(self.unit, self.unit)

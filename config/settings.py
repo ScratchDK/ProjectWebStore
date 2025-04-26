@@ -112,3 +112,5 @@ LOGIN_REDIRECT_URL = 'catalog:home'
 LOGOUT_REDIRECT_URL = 'catalog:home'
 
 LOGIN_URL = 'users:login'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

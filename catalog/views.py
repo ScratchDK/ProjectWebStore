@@ -1,10 +1,12 @@
 # from django.core.paginator import Paginator
 from django.urls import reverse_lazy
-from django.shortcuts import render, reverse
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ContactForm, ProductForm
-from django.views.generic import ListView, FormView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, FormView, CreateView, UpdateView, DeleteView, View
 from .models import Product
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseForbidden
+from django.contrib import messages
 from django.forms import inlineformset_factory, BooleanField
 
 
@@ -19,11 +21,27 @@ from django.forms import inlineformset_factory, BooleanField
 #                 field.widget.attrs["class"] = "form-control"
 
 
+class UnpublishProductView(LoginRequiredMixin, View):
+    def post(self, request, product_id):
+        product = get_object_or_404(Product, id=product_id)
+
+        if not request.user.has_perm('catalog.can_cancel_publish_product') or product.owner != request.user:
+            return HttpResponseForbidden("У вас нет прав для отмены публикации продукта.")
+
+        product.is_published = False
+        product.save()
+
+        return redirect('catalog:home')
+
+
 class ProductsListView(ListView):
     model = Product
     template_name = 'catalog/home.html'
     context_object_name = 'products'
     paginate_by = 8
+
+    def get_queryset(self):
+        return Product.objects.filter(is_published=True)
 
 
 class ContactView(FormView):
@@ -43,12 +61,29 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     template_name = 'catalog/create_product.html'
     success_url = reverse_lazy('catalog:home')
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     pk_url_kwarg = 'id'
     template_name = 'catalog/delete_product.html'
     success_url = reverse_lazy('catalog:home')
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.model.objects.filter(pk=kwargs['id']).first()
+
+        is_manager = request.user.groups.filter(name='Менеджеры').exists()
+
+        if obj.owner != request.user and not is_manager:
+            messages.error(request, "Вы не можете удалить товар!")
+            return redirect('catalog:home')
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
@@ -57,6 +92,23 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProductForm
     template_name = "catalog/update_product.html"
     success_url = reverse_lazy('catalog:home')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.model.objects.filter(pk=kwargs['id']).first()
+
+        is_manager = request.user.groups.filter(name='Менеджеры').exists()
+
+        if obj.owner != request.user and not is_manager:
+            messages.error(request, "Вы не можете изменять товар!")
+            return redirect('catalog:home')
+        return super().dispatch(request, *args, **kwargs)
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
