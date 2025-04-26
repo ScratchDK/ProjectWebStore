@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Добавление продукта{% endblock %}
+{% block title %}Авторизация{% endblock %}
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/create_product.css' %}">
@@ -11,13 +11,12 @@
 {% block content %}
 <div class="content-create">
     <div class="form-container">
-        <h1>Добавить новый продукт</h1>
+        <h1>Вход</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button class="btn-save" type="submit">Сохранить продукт</button>
+            <button type="submit">Войти</button>
         </form>
-        <a href="{% url 'catalog:home' %}">Назад к главной странице</a>
     </div>
 </div>
 {% endblock %}

@@ -93,6 +93,11 @@ body {
     height: 100px;
 }
 
+.img-rubl {
+    width: 20px;
+    height: 20px;
+}
+
 .sidebar a {
     font-size: 18px;
     margin-left: 10px;
@@ -142,6 +147,7 @@ body {
     background: black;
     color: white;
     font-size: 16px;
+    width: 220px;
 }
 
 .modal {
@@ -248,4 +254,10 @@ body {
     border: 1px solid black;
     border-radius: 4px;
     padding: 4px;
+}
+
+.btn-exit {
+    color: white;
+    background: Grey;
+    border: None;
 }

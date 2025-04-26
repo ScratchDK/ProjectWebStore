@@ -14,7 +14,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'image', 'category', 'price']
+        fields = ['name', 'description', 'image', 'category', 'price', 'unit']
         # widgets = {
         #     'description': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Введите описание продукта...'}),
         #     'price': forms.NumberInput(attrs={'step': '0.01'}),
@@ -25,6 +25,7 @@ class ProductForm(forms.ModelForm):
             'image': 'Изображение',
             'category': 'Категория',
             'price': 'Цена за покупку',
+            'unit': 'Единица измерения',
         }
 
     def __init__(self, *args, **kwargs):
@@ -44,6 +45,10 @@ class ProductForm(forms.ModelForm):
         })
 
         self.fields['category'].widget.attrs.update({
+            'style': 'width: 100%'
+        })
+
+        self.fields['unit'].widget.attrs.update({
             'style': 'width: 100%'
         })
 
@@ -69,15 +74,20 @@ class ProductForm(forms.ModelForm):
 
     def clean_image(self):
         image = self.cleaned_data.get('image')
-        if image:
-            if not (image.content_type in ['image/jpeg', 'image/png']):
-                raise ValidationError('Разрешены только файлы формата JPEG или PNG.')
 
-            max_size = 5 * 1024 * 1024
-            if image.size > max_size:
-                raise ValidationError('Размер файла не должен превышать 5 МБ.')
+        # Проверяем, что изображение не None
+        if image:
+            if hasattr(image, 'content_type'):
+                if image.content_type not in ['image/jpeg', 'image/png']:
+                    raise ValidationError('Разрешены только файлы формата JPEG или PNG.')
+
+                max_size = 5 * 1024 * 1024
+                if image.size > max_size:
+                    raise ValidationError('Размер файла не должен превышать 5 МБ.')
+
         else:
             raise ValidationError('Не выбрано ни одного изображения!')
+
         return image
 
 

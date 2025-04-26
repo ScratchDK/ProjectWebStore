@@ -44,7 +44,7 @@ form input[type="file"]:focus {
     outline: none;
 }
 
-button {
+.btn-save {
     background-color: #007bff;
     color: white;
     padding: 10px;
@@ -55,7 +55,7 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+.btn-save:hover {
     background-color: #0056b3;
 }
 

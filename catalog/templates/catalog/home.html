@@ -1,5 +1,7 @@
 {% extends 'catalog/base.html' %}
 
+{% load static %}
+
 {% block title %}Главная{% endblock %}
 
 {% block content %}
@@ -11,7 +13,13 @@
         <div class="product-card">
             <div class="product-name"><b>{{ product.name }}</b></div>
             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-product">
-            <div class="product-price"><b>{{ product.price }}</b></div>
+            {% if product.old_price > product.price %}
+                <div class="product-price"><b><span style="color: Red;">{{ product.price }}</span><img src="{% static 'img/rubl.jpg' %}" alt="Рубль" class="img-rubl"></b></div>
+                <small>* Цена указана за 1 {{ product.get_unit_display }} товара</small>
+            {% else %}
+                <div class="product-price"><b>{{ product.price }}</b><img src="{% static 'img/rubl.jpg' %}" alt="Рубль" class="img-rubl"></div>
+                <small>* Цена указана за 1 {{ product.get_unit_display }} товара</small>
+            {% endif %}
             <div class="product-description">{{ product.description|truncatechars:40 }}</div>
             <div class="product-btn">
                 <button class="btn-buy" data-toggle="modal" data-target="#productModal{{ product.id }}">Подробнее</button>
@@ -30,14 +38,25 @@
                     </div>
                     <div class="modal-body">
                         <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-product" style="width:200px; height: 200px;"/>
-                        <p><strong>Цена:</strong> {{ product.price }}</p>
+                        {% if product.old_price > product.price %}
+                            <div style="margin-top: 10px;"><strong>Цена:</strong> <span style="font-size: 24px; color: Red;">{{ product.price }}
+                                <img src="{% static 'img/rubl.jpg' %}" alt="Рубль" class="img-rubl-modal" style="width:18px; height: 18px;"></span>
+                                <del>{{ product.old_price }}<img src="{% static 'img/rubl.jpg' %}" alt="Рубль" class="img-rubl-modal" style="width:12px; height: 12px;"></del></div>
+                            <small>* Цена указана за 1 {{ product.get_unit_display }} товара</small>
+                        {% else %}
+                            <div style="margin-top: 10px;"><strong>Цена:</strong> <span style="font-size: 24px;">{{ product.price }}
+                                <img src="{% static 'img/rubl.jpg' %}" alt="Рубль" class="img-rubl-modal" style="width:18px; height: 18px;"></span></div>
+                            <small>* Цена указана за 1 {{ product.get_unit_display }} товара</small>
+                        {% endif %}
                         <p><strong>Описание:</strong> {{ product.description }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-secondary" data-dismiss="modal">Закрыть</button>
-                        <button type="button" class="btn-primary">Купить</button>
-                        <a href="{% url 'catalog:update_product' product.id %}"><i class="bi bi-pencil-square"></i></a>
-                        <a href="#"><button class="btn-delete" data-toggle="modal" data-target="#deleteModal{{ product.id }}"><i class="bi bi-trash"></i></button></a>
+                            <button type="button" class="btn-secondary" data-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn-primary">Купить</button>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'catalog:update_product' product.id %}"><i class="bi bi-pencil-square"></i></a>
+                            <a href="#"><button class="btn-delete" data-toggle="modal" data-target="#deleteModal{{ product.id }}"><i class="bi bi-trash"></i></button></a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
