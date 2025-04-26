@@ -15,7 +15,11 @@
 <div class="container">
     {% for product in products %}
         <div class="product-card">
-            <div class="product-name"><b>{{ product.name|truncatechars:50 }}</b></div>
+            <div class="product-name">
+                {% if product.is_published == False %}
+                    <i class="bi bi-eye-slash"></i>
+                {% endif %}
+                    <b>{{ product.name|truncatechars:50 }}</b></div>
             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-product">
             {% if product.old_price > product.price %}
                 <div class="product-price"><b><span style="color: Red;">{{ product.price }}</span><img src="{% static 'img/rubl.jpg' %}" alt="Рубль" class="img-rubl"></b></div>
@@ -74,7 +78,7 @@
                             <a href="#"><button class="btn-delete" data-toggle="modal" data-target="#deleteModal{{ product.id }}"><i class="bi bi-trash"></i></button></a>
                             <form action="{% url 'catalog:unpublish_product' product.id %}" method="post" class="d-inline">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-eye-slash"></i> Отменить публикацию</button>
+                                <button type="submit" class="btn btn-warning btn-sm"> Отменить публикацию</button>
                             </form>
                         {% endif %}
                     </div>

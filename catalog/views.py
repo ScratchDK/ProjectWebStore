@@ -41,7 +41,10 @@ class ProductsListView(ListView):
     paginate_by = 8
 
     def get_queryset(self):
-        return Product.objects.filter(is_published=True)
+        if self.request.user.is_authenticated:
+            return Product.objects.all()
+        else:
+            return Product.objects.filter(is_published=True)
 
 
 class ContactView(FormView):
