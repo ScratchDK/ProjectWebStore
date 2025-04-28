@@ -28,10 +28,10 @@
             <a href="{% url 'blog:post_list' %}"><i class="bi bi-book"></i> Блог</a>
             {% if user.is_authenticated %}
                 <a href="{% url 'blog:create_post' %}"><i class="bi bi-plus-circle"></i> Добавить пост</a>
-                <a href="{% url 'customers:mailing_list' %}"> Список рассылок</a>
-                <a href="{% url 'customers:letter' %}"> Письмо</a>
-                <a href="{% url 'customers:mailing_create' %}"> Создать рассылку</a>
-                <a href="{% url 'customers:recipient' %}"> Получатель</a>
+                <a href="{% url 'customers:mailing_list' %}"><i class="bi bi-mailbox"></i> Список рассылок</a>
+                <a href="{% url 'customers:letter' %}"><i class="bi bi-envelope"></i> Письмо</a>
+                <a href="{% url 'customers:mailing_create' %}"><i class="bi bi-plus-circle"></i> Создать рассылку</a>
+                <a href="{% url 'customers:recipient' %}"><i class="bi bi-person"></i> Получатель</a>
             {% endif %}
         </div>
         <div class="dropdown">
