@@ -2,10 +2,24 @@
 
 {% load static %}
 
+{% load cache %}
+
 {% block title %}Главная{% endblock %}
+
+{% block nav %}
+    <div class="dropdown-cat">
+        <a href="#about"><i class="bi bi-list"></i> Категории</a>
+        <div class="dropdown-content-cat">
+            {% for cat in categories %}
+                <a href="?category={{ cat.pk }}">{{ cat.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
 
 {% block content %}
 <h1 style="text-align:center; font-size: 48px;"><strong>Главная</strong></h1>
+
 <h3 style="text-align:center"> Вы находитесь на главной странице онлайн магазина </h3>
 
 {% if messages %}
@@ -43,6 +57,7 @@
         </div>
 
         <!-- Модальное окно для продукта -->
+    {% cache 900 product_modal product.id %}
         <div class="modal fade" id="productModal{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="productModalLabel{{ product.id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -85,6 +100,7 @@
                 </div>
             </div>
         </div>
+    {% endcache %}
 
         <!-- Модальное окно для подтверждения удаления -->
         <div id="deleteModal{{ product.id }}" class="modal fade" tabindex="-1" role="dialog">
