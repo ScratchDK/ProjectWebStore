@@ -19,7 +19,10 @@
         </div>
         <div class="nav">
             <a href="{% url 'catalog:home' %}" ><i class="bi bi-house"></i> Главная</a>
-            <a href="#about"><i class="bi bi-list"></i> Категории</a>
+
+            {% block nav %}
+            {% endblock %}
+
             <a href="#services"><i class="bi bi-cart"></i> Заказы</a>
             <a href="{% url 'catalog:contacts' %}"><i class="bi bi-person-lines-fill"></i> Контакты</a>
             {% if user.is_authenticated %}

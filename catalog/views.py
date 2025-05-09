@@ -1,13 +1,15 @@
 # from django.core.paginator import Paginator
+from django.core.cache import cache
 from django.urls import reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ContactForm, ProductForm
 from django.views.generic import ListView, FormView, CreateView, UpdateView, DeleteView, View
-from .models import Product
+from .models import Product, Category
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseForbidden
 from django.contrib import messages
-from django.forms import inlineformset_factory, BooleanField
+from .services import get_products_by_category
+# from django.forms import inlineformset_factory, BooleanField
 
 
 # class StyleFormMixin:
@@ -40,11 +42,29 @@ class ProductsListView(ListView):
     context_object_name = 'products'
     paginate_by = 8
 
+    # def get_queryset(self):
+    #     category_pk = self.request.GET.get('category')
+    #
+    #     queryset = super().get_queryset()
+    #
+    #     if category_pk:
+    #         category = get_object_or_404(Category, pk=category_pk)
+    #         queryset = queryset.filter(category=category)
+    #
+    #     if not self.request.user.is_authenticated:
+    #         queryset = queryset.filter(is_published=True)
+    #
+    #     return queryset
+
     def get_queryset(self):
-        if self.request.user.is_authenticated:
-            return Product.objects.all()
-        else:
-            return Product.objects.filter(is_published=True)
+        category_pk = self.request.GET.get('category')
+        return get_products_by_category(category_pk, self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+
+        return context
 
 
 class ContactView(FormView):

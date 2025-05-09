@@ -114,3 +114,10 @@ LOGOUT_REDIRECT_URL = 'catalog:home'
 LOGIN_URL = 'users:login'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+    }
+}
